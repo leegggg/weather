@@ -122,14 +122,15 @@ engine = create_engine('sqlite:///./sqlalchemy.db')
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-Base.metadata.create_all(engine)
+
+# Base.metadata.create_all(engine)
 
 
 def main():
     print("Main")
-    date = datetime.datetime(1994, 11, 1)
+    date = datetime.datetime(1996, 11, 1)
     for i in range(5000):
-        date = date + timedelta(days=21)
+        date = date + timedelta(days=27)
         dateStartString = "{:04d}{:02d}{:02d}".format(date.year, date.month,
                                                       date.day)
         dateEnd = date + timedelta(days=30)
@@ -151,7 +152,7 @@ def main():
                 obs = response["observations"]
                 break
             else:
-                time.sleep(1)
+                # time.sleep(1)
                 print(response)
 
             if times > 1:
@@ -165,7 +166,6 @@ def main():
             obsP = dictToObsBoj(p)
             insert(obsP)
 
-    session.close()
     return
 
 
@@ -176,6 +176,7 @@ def insert(obs):
         session.commit()
     except:
         pass
+    session.close()
     # 关闭session:
     return
 
