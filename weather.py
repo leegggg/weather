@@ -123,13 +123,13 @@ engine = create_engine('sqlite:///./sqlalchemy.db')
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 
 def main():
     print("Main")
-    date = datetime.datetime(1996, 11, 1)
-    for i in range(5000):
+    date = datetime.datetime(2018, 1, 1)
+    for i in range(5):
         date = date + timedelta(days=27)
         dateStartString = "{:04d}{:02d}{:02d}".format(date.year, date.month,
                                                       date.day)
@@ -141,8 +141,13 @@ def main():
         times = 0
         while (True):
             times = times + 1
+            # response = requests.get(
+            #     "https://api.weather.com/v1/geocode/11.54388905/104.84722137/observations/historical.json"
+            #     + "?apiKey=6532d6454b8aa370768e63d6ba5a832e&units=m" +
+            #     "&startDate=" + dateStartString + "&endDate=" +
+            #     dateEndString).json()
             response = requests.get(
-                "https://api.weather.com/v1/geocode/11.54388905/104.84722137/observations/historical.json"
+                "https://api.weather.com/v1/geocode/35.0/105.0/observations/historical.json"
                 + "?apiKey=6532d6454b8aa370768e63d6ba5a832e&units=m" +
                 "&startDate=" + dateStartString + "&endDate=" +
                 dateEndString).json()
